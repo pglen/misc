@@ -24,19 +24,23 @@
                             File name for sound. Default is "complete.oga"
       -o TIMEOUT, --timeout TIMEOUT
                             Notification window timeout in seconds. Zero for no
-                            timeoutDefault is 10 sec.
+                            timeout. Default is 10 sec.
       -l TMINLEN, --tminlen TMINLEN
                             Time the program must be running (in seconds) for
                             notify to kick in. Default is 30 sec.
       -e TITLE, --title TITLE
                             Title line of the notification field. Default: "Done
-                            Program"Default is 30 sec.
+                            Program". Default is 30 sec.
       -t, --testalert       Test notifier.
       -s, --testsound       Test sound.
 
-## Screen shot of notify:
+ The sound filename must be the full path to the actual file. For example:
 
-![Notify Screen Shot](screen.png)
+    "/usr/share/sounds/freedesktop/stereo/complete.oga"
+
+## ScreenShot of notify:
+
+![Notify ScreenShot](screen.png)
 
 One may run the ./comalert.py from the command line, (./comalert.py & for background)
 or as a startup item in .bashrc ... etc

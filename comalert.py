@@ -132,7 +132,7 @@ def config_args():
                         help='File name for sound. Default is "complete.oga"')
 
     argparser.add_argument('-o', '--timeout', action="store", type=int, default=10,
-                        help='Notification window timeout in seconds. Zero for no timeout'
+                        help='Notification window timeout in seconds. Zero for no timeout. '
                                 'Default is 10 sec.')
 
     argparser.add_argument('-l', '--tminlen', action="store", type=int, default=30,
@@ -140,7 +140,7 @@ def config_args():
                         'Default is 30 sec.')
 
     argparser.add_argument('-e', '--title', action="store", default="Done Program",
-                        help='Title line of the notification field. Default: "Done Program"'
+                        help='Title line of the notification field. Default: "Done Program" '
                         'Default is 30 sec.')
 
     argparser.add_argument('-t', '--testalert', action="store_true",
