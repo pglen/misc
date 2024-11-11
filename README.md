@@ -34,6 +34,8 @@
       -t, --testalert       Test notifier.
       -s, --testsound       Test sound.
 
+![Notify Screen Shot](screen.png)
+
 ### powtest.py
 
  Print large power consumer processes in a loop
