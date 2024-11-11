@@ -120,13 +120,14 @@ def config_args():
     argparser = argparse.ArgumentParser(
         description="Monitor programs terminating in (bash) shell. Notify and play sound.")
 
-    argparser.add_argument('argx', nargs='*', help="Arguments, context dependent", default=["Test Alert",])
+    argparser.add_argument('argx', nargs='*', default=["Test Alert",],
+                        help="Arguments, context dependent")
 
     argparser.add_argument('-v', '--verbose', action="count", default=0,
-                                                help='Show operational details.')
+                        help='Show operational details. Add more -v for more details.')
 
     argparser.add_argument('-n', '--nosound', action="store_true",
-                                                help='Switch off sound alerts.')
+                        help='Switch off sound alerts.')
 
     argparser.add_argument('-f', '--filesound', action="store",
                         help='File name for sound. Default is "complete.oga"')
@@ -143,10 +144,10 @@ def config_args():
                         help='Title line of the notification field. Default: "Done Program" ' )
 
     argparser.add_argument('-t', '--testalert', action="store_true",
-                                                help='Test notifier.')
+                        help='Test notifier. Command line args are used as notification.')
 
     argparser.add_argument('-s', '--testsound', action="store_true",
-                                                help='Test sound.')
+                        help='Test sound.')
 
     return argparser
 

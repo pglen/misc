@@ -5,12 +5,11 @@
 ### comalert.py
 
  Alert when a shell command terminates by displaying notification. Also play
- a sound / beeping.
+a sound and / or beep.
 
     usage: comalert.py [-h] [-v] [-n] [-f FILESOUND] [-o TIMEOUT] [-l TMINLEN]
                        [-e TITLE] [-t] [-s]
                        [argx ...]
-
     Monitor programs terminating in (bash) shell. Notify and play sound.
 
     positional arguments:
@@ -18,7 +17,8 @@
 
     options:
       -h, --help            show this help message and exit
-      -v, --verbose         Show operational details.
+      -v, --verbose         Show operational details. Add more -v for more
+                            details.
       -n, --nosound         Switch off sound alerts.
       -f FILESOUND, --filesound FILESOUND
                             File name for sound. Default is "complete.oga"
@@ -31,10 +31,11 @@
       -e TITLE, --title TITLE
                             Title line of the notification field. Default: "Done
                             Program"
-      -t, --testalert       Test notifier.
+      -t, --testalert       Test notifier. Command line args are used as
+                            notification.
       -s, --testsound       Test sound.
 
-## ScreenShot of notify:
+## ScreenShot of notify (on xfce4):
 
 ![Notify ScreenShot](screen.png)
 
@@ -72,7 +73,7 @@ or as a startup item in .bashrc ... etc
 
 ### iotest.py
 
-  Print lagging io transactions
+  Print lagging io transactions. This helped troubleshooting short freezes.
 
     ./iotest.py
     read:
@@ -90,8 +91,8 @@ or as a startup item in .bashrc ... etc
 
   Some pyGtk (pyGobject) tests
 
-### mathtest
+### mathtest./
 
-  Algorythms for math constants (just a test)
+  Algorythms for math constants e and pi -- (just a test)
 
 // EOF
