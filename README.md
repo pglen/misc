@@ -14,7 +14,7 @@
     Monitor programs terminating in (bash) shell. Notify and play sound.
 
     positional arguments:
-      argx                  Arguments
+      argx                  Arguments, context dependent
 
     options:
       -h, --help            show this help message and exit
@@ -30,13 +30,9 @@
                             notify to kick in. Default is 30 sec.
       -e TITLE, --title TITLE
                             Title line of the notification field. Default: "Done
-                            Program". Default is 30 sec.
+                            Program"
       -t, --testalert       Test notifier.
       -s, --testsound       Test sound.
-
- The sound filename must be the full path to the actual file. For example:
-
-    "/usr/share/sounds/freedesktop/stereo/complete.oga"
 
 ## ScreenShot of notify:
 

@@ -120,7 +120,7 @@ def config_args():
     argparser = argparse.ArgumentParser(
         description="Monitor programs terminating in (bash) shell. Notify and play sound.")
 
-    argparser.add_argument('argx', nargs='*', help="Arguments", default=["Test Alert",])
+    argparser.add_argument('argx', nargs='*', help="Arguments, context dependent", default=["Test Alert",])
 
     argparser.add_argument('-v', '--verbose', action="count", default=0,
                                                 help='Show operational details.')
@@ -140,8 +140,7 @@ def config_args():
                         'Default is 30 sec.')
 
     argparser.add_argument('-e', '--title', action="store", default="Done Program",
-                        help='Title line of the notification field. Default: "Done Program" '
-                        'Default is 30 sec.')
+                        help='Title line of the notification field. Default: "Done Program" ' )
 
     argparser.add_argument('-t', '--testalert', action="store_true",
                                                 help='Test notifier.')
