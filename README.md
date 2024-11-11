@@ -34,7 +34,12 @@
       -t, --testalert       Test notifier.
       -s, --testsound       Test sound.
 
+## Screen shot of notify:
+
 ![Notify Screen Shot](screen.png)
+
+One may run the ./comalert.py from the command line, (./comalert.py & for background)
+or as a startup item in .bashrc ... etc
 
 ### powtest.py
 
