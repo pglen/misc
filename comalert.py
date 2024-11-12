@@ -23,6 +23,8 @@ except:
         pass
     #print("No sound subsystem")
 
+VERSION = "1.0.0"
+
 def _asynsound():
     #print("Thread start")
     Gdk.beep()
@@ -65,18 +67,18 @@ def mainloop():
 
     sumx = ""
     for aa in psutil.process_iter():
-        #print(dir(aa))
         #print("name", aa.name)
-        if aa.name() == "bash":
+        if aa.name() == args.bshell:
             #print(dir(aa))
-            #print("lead:", aa.name(), aa.pid, aa.ppid(), aa.terminal())
+            if args.verbose > 3:
+                print("lead:", aa.name(), aa.pid, aa.ppid(), aa.terminal())
             for bb in psutil.process_iter():
                 #if aa.terminal() and aa.terminal() == bb.terminal():
                 if aa.pid == bb.ppid():
                     #print(" sub:", bb.name(), bb.pid, bb.cmdline(), bb.name(), bb.terminal())
+                    # Vanished, alert if appropriate
                     if bb.pid not in subids:
-                        #print(dir(bb))
-                        #print("tmie", bb.create_time())
+                        #print("create tme", bb.create_time())
                         subids.append(bb.pid)
                         subnames.append(bb.name())
                         sublines.append(bb.cmdline())
@@ -129,6 +131,9 @@ def config_args():
     argparser.add_argument('-n', '--nosound', action="store_true",
                         help='Switch off sound alerts.')
 
+    argparser.add_argument('-V', '--version', action="store_true",
+                        help='Show version number.')
+
     argparser.add_argument('-f', '--filesound', action="store",
                         help='File name for sound. Default is "complete.oga"')
 
@@ -143,11 +148,17 @@ def config_args():
     argparser.add_argument('-e', '--title', action="store", default="Done Program",
                         help='Title line of the notification field. Default: "Done Program" ' )
 
+    argparser.add_argument('-b', '--bshell', action="store", default="bash",
+                        help='Shell program to monitor. Default: "bash" ' )
+
     argparser.add_argument('-t', '--testalert', action="store_true",
                         help='Test notifier. Command line args are used as notification.')
 
     argparser.add_argument('-s', '--testsound', action="store_true",
                         help='Test sound.')
+
+    argparser.add_argument('-p', '--sleep', action="store",  type=float, default=1.0,
+                        help='Time between loop evalusations in seconds. Default: 1 sec.')
 
     return argparser
 
@@ -157,6 +168,10 @@ if __name__ == "__main__":
     args = argparser.parse_args()
     if args.verbose > 2:
         print (args)
+
+    if args.version:
+        print("Version: %s" % VERSION)
+        sys.exit(0)
 
     if args.testalert:
         notify(" ".join(args.argx))
@@ -173,8 +188,16 @@ if __name__ == "__main__":
             playsound("/usr/share/sounds/freedesktop/stereo/complete.oga")
             sys.exit()
 
+    # Contain value
+    if args.sleep  < 0.1:
+        args.sleep = 0.1
+
+    maincnt = 0
     while True:
+        maincnt += 1
+        if args.verbose > 4:
+            print("Evaluating mainloop:", maincnt)
         mainloop()
-        time.sleep(2)
+        time.sleep(args.sleep)
 
 # EOF

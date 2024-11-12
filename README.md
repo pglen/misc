@@ -35,12 +35,24 @@ a sound and / or beep.
                             notification.
       -s, --testsound       Test sound.
 
+ The test option can also be used as a notification driver. The command line
+arguments are fed into the notifier text. With the -e option one can specify a header
+for the notification. For example:
+
+    comalert.py -t -e "Notification Header" "Notification Body"
+
 ## ScreenShot of notify (on xfce4):
 
 ![Notify ScreenShot](screen.png)
 
 One may run the ./comalert.py from the command line, (./comalert.py & for background)
 or as a startup item in .bashrc ... etc
+
+## Algorithm used for monitoring:
+
+ The running shell program entries (bash entries) are collected with the psutil module.
+The programs that have a shell as a parent are then listed. If that list looses a member,
+it means that program has finished. An alert / notification is triggered.
 
 ### powtest.py
 
@@ -73,7 +85,7 @@ or as a startup item in .bashrc ... etc
 
 ### iotest.py
 
-  Print lagging io transactions. This helped troubleshooting short freezes.
+  Print lagging IO transactions. This helped troubleshooting short freezes.
 
     ./iotest.py
     read:
@@ -91,8 +103,8 @@ or as a startup item in .bashrc ... etc
 
   Some pyGtk (pyGobject) tests
 
-### mathtest./
+### mathtest/
 
-  Algorythms for math constants e and pi -- (just a test)
+  Algorithms for math constants e and pi -- (just a test)
 
 // EOF
