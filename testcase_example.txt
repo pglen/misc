@@ -1,0 +1,32 @@
+# String triplet per test.
+#
+# Format:
+#
+#   Context string  Send string  Expect string
+#   --------------  -----------  -------------
+
+[
+    ["", "./dbaseadm.py -k test -a testdata", b""],
+
+    [ "Dump data", "./dbaseadm.py -m",
+           b"0     pos    32 Data: b'test' Data2: b'testdata'\n"],
+
+    [ "Create data2", "./dbaseadm.py -k test2 -a testdata2", b""],
+
+    ["Dump data", "./dbaseadm.py -m",
+         b"0     pos    68 Data: b'test2' Data2: b'testdata2'\n"\
+         b"1     pos    32 Data: b'test' Data2: b'testdata'\n"],
+
+    [ "", "./dbaseadm.py -k test3 -a testdata3", b""],
+    [ "", "./dbaseadm.py -k test4 -a testdata4", b""],
+    [ "", "./dbaseadm.py -k test5 -a testdata5", b""],
+
+    ["Get data", "./dbaseadm.py -t test",
+         b"[[b'test', b'testdata']]\n", ],
+
+    ["Find data", "./dbaseadm.py -F test",
+        b"[[b'test5', b'testdata5'], [b'test4', b'testdata4'], "\
+        b"[b'test3', b'testdata3'], [b'test2', b'testdata2'], "\
+        b"[b'test', b'testdata']]\n", ],
+]
+
