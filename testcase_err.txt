@@ -7,6 +7,8 @@
 #    for the user   what to test    what to expect  True if Find
 #
 
+err
+
 [
     [ "Test ls", "ls", "Make", True],
     [ "DF command", "df", "blocks", True ],

@@ -4,25 +4,24 @@ import  os, sys, getopt, signal, select, socket, time, struct
 import  random, stat, os.path, datetime, threading, subprocess
 import  struct, io, traceback, hashlib, traceback, argparse
 
-try:
-    import fcntl
-except:
-    fcntl = None
-
 base = os.path.dirname(os.path.realpath(__file__))
 
 '''
- String triplet per test.  Input format is array of data.
 
- Format of data:
+ String quaruplet per test.  Input format is array of data.
 
-   Context string  Send string  Expect string
-   --------------  -----------  -------------
+    #   Context_string  Send_string     Expect_string   Find/Compare
+    #   --------------  -----------     -------------   ------------
+    #    for the user   what to test    what to expect  True if Find
+
 '''
 
-#print("testdrive")
+Version = "1.0.0"
 
 def strdiff(expectx, actualx):
+
+    ''' Rudimentary info on string differences '''
+
     strx = ""
     for cnt, bb in enumerate(expectx):
         #print("cnt", cnt, bb)
@@ -51,7 +50,7 @@ def xdiff(actualx, expectx, findflag):
         else:
             return"\033[31;1mERR\033[0m"
 
-def obtain(cmd):
+def obtain_response(cmd):
 
     ''' Get output from command '''
 
@@ -72,9 +71,9 @@ def obtain(cmd):
 
 def send_expect(context, sendx, expectx, findflag):
 
-    ''' evaluate SEND -- EXPECT sequence '''
+    ''' Evaluate one SEND -- EXPECT sequence '''
 
-    ret = obtain(sendx)
+    ret = obtain_response(sendx)
     if args.debug > 2:
         print("\033[32;1mGot: ", ret, "\033[0m")
 
@@ -97,8 +96,11 @@ def send_expect(context, sendx, expectx, findflag):
         if ret != expectx:
             print("\033[34;1mDiff:\033[0m\n",
                 strdiff(ret, expectx))
+    return err
 
 def mainloop():
+
+    global args
 
     if args.test_cases:
         for fff in args.test_cases:
@@ -107,15 +109,18 @@ def mainloop():
                     testx = fp.read()
             except:
                 print("Cannot open file", "'" + fff  + "'")
-                sys.exit()
-
+                sys.exit(1)
             #print("testx", testx)
-
-            test_case = eval(testx)
-            for aa in test_case:
-                send_expect(aa[0], aa[1], aa[2], aa[3])
-
-version = "1.0.0"
+            try:
+                test_case_code = eval(testx)
+            except:
+                print("Error in", fff, sys.exc_info())
+                continue
+            for aa in test_case_code:
+                err = send_expect(aa[0], aa[1], aa[2], aa[3])
+                #print("err", err)
+                if "ERR" in err:
+                    args.errcnt += 1
 
 def mainfunct():
 
@@ -123,20 +128,30 @@ def mainfunct():
 
     parser = argparse.ArgumentParser(\
             description='Test send/expect by executing sub commands')
+    parser.add_argument("-V", '--version', dest='version',
+                        default=0,  action='store_true',
+                        help='Show version number')
     parser.add_argument("-v", '--verbose', dest='verbose',
                         default=0,  action='count',
-                        help='verbocity on (default: off)')
+                        help='increase verbocity (Default: none)')
     parser.add_argument("-d", '--debug', dest='debug',
                         default=0,  type=int, action='store',
-                        help='Debug level')
+                        help='Debug level. Default: none')
     parser.add_argument("test_cases", nargs= "+",
-                        help = "Test cases to execute")
+                        help = "Test case file names to execute")
 
     args = parser.parse_args()
     #print(args)
+
+    if args.version:
+        print("Version: %s" % Version)
+        sys.exit(0)
+
+    args.errcnt = 0
     mainloop()
 
 if __name__ == "__main__":
     mainfunct()
+    sys.exit(args.errcnt + 1)
 
 # EOF

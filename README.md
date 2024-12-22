@@ -107,4 +107,39 @@ it means that program has finished. An alert / notification is triggered.
 
   Algorithms for math constants e and pi -- (just a test)
 
+### testdrive.py
+
+  Test prgrams by Send / Expect method.
+  usage: testdrive.py [-h] [-v] [-d DEBUG] test_cases [test_cases ...]
+
+    Test send/expect by executing sub commands
+
+    positional arguments:
+      test_cases            Test cases to execute
+
+    options:
+      -h, --help            show this help message and exit
+      -v, --verbose         verbocity on (default: off)
+      -d DEBUG, --debug DEBUG
+                            Debug level
+
+Test case for testing programs syntax:
+
+    # String quadruplet per test.
+    #
+    # Format:
+    #
+    #   Context_string  Send_string     Expect_string   Find/Compare
+    #   --------------  -----------     -------------   ------------
+    #    for the user   what to test    what to expect  True if Find
+
+    [
+        [ "Test ls", "ls", "Make", True],
+        [ "Test ls not", "ls", "Make", False]
+    ]
+
+
+
+
+
 // EOF
